@@ -50,7 +50,7 @@ app.post('/cart/add', (req, res) => {
                 res.json({ message: 'Item quantity updated in cart' });
             });
         } else {
-            db.run('INSERT INTO cart (item_name, item_quantity ,item_price, total_price) VALUES (?, ?, ?, ?)', [cartItem, parseInt(itemQty),price,parseInt(itemQty)*price], (err) => {
+            db.run('INSERT INTO cart (item_name, item_quantity ,item_price, total_price) VALUES (?, ?, ?, ?)', [(cartItem).toLowerCase(), parseInt(itemQty),price,parseInt(itemQty)*price], (err) => {
                 if (err) {
                     console.error(err);
                     return res.status(500).json({ error: 'Failed to add item to cart' });
