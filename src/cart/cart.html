@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cart Form</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+        }
+    
+        form {
+          display: flex;
+          flex-direction: column;
+          max-width: 300px;
+          margin-bottom: 20px;
+        }
+    
+        label {
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+    
+        input[type="text"] {
+          padding: 8px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+    
+        button[type="submit"] {
+          padding: 8px 12px;
+          background-color: #4CAF50;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+    
+        button[type="submit"]:hover {
+          background-color: #45a049;
+        }
+
+        #showButton {
+          padding: 8px 12px;
+          background-color: #4CAF50;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+    
+        #showButton:hover {
+          background-color: #45a049;
+        }
+
+        #cartItems > li {
+            border-style: dashed;
+            margin-bottom: 10px;
+            border-width: 3px;
+            border-color: #4CAF50;
+            font-size: 10pt;
+            width: 175px;
+            padding-top: 7px;
+            padding-left: 7px;
+            padding-bottom: 7px;
+            padding-right: 7px;
+            border-radius: 4px;
+        }
+      </style>
+</head>
+
+<body>
+    <img src="data:image/png;base64,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" alt="">
+    <h1>Cart Form</h1>
+
+    <!-- Add Item Form -->
+    <h2>Add Item</h2>
+    <form id="addForm" action="/cart/add" method="POST">
+        <input type="text" name="cartItem" placeholder="Item name" value="" required>
+        <input type="text" name="itemQty" placeholder="Qty" value="" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- Remove Item Form -->
+    <h2>Remove Item</h2>
+    <form id="removeForm" action="/cart/remove" method="POST">
+        <input type="text" name="id" placeholder="Item ID" value="" required>
+        <button type="submit">Remove</button>
+    </form>
+
+    <h2>Apply Coupon</h2>
+    <form id="applyCoupon" action="/cart/remove" method="POST">
+        <input type="text" name="token" placeholder="X-Y-Z" value="" required>
+        <button type="submit">Apply</button>
+    </form>
+
+    <!-- Show Items Button -->
+    <h2>Show Items</h2>
+    <button id="showButton">Show Items</button>
+
+    <!-- Display Cart Items -->
+    <h2>Cart Items</h2>
+    <ul id="cartItems"></ul>
+
+    <script>
+        let token=""
+        // Handle form submissions
+        document.getElementById('addForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const item = form.elements.cartItem.value;
+            const qty = form.elements.itemQty.value;
+            addItem(item, qty);
+            form.reset();
+        });
+        document.getElementById('applyCoupon').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const form = event.target;
+            token=form.elements.token.value
+            showItems();
+            form.reset();
+        });
+
+        document.getElementById('removeForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const id = form.elements.id.value;
+            removeItem(id);
+            form.reset();
+        });
+
+        // Handle show items button click
+        document.getElementById('showButton').addEventListener('click', () => {
+            showItems();
+        });
+
+        // Function to add an item to the cart
+        function addItem(item, qty) {
+            fetch('/cart/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 'cartItem' : item, 'itemQty' : qty })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    showItems();
+                    alert(data.message)
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        // Function to remove an item from the cart
+        function removeItem(id) {
+            fetch(`/cart/remove/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    showItems();
+                    alert(data.message)
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        // Function to show the cart items
+        function showItems() {
+//             const response = await fetch(url, {
+//     method: "POST", // *GET, POST, PUT, DELETE, etc.
+//     mode: "cors", // no-cors, *cors, same-origin
+//     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+//     credentials: "same-origin", // include, *same-origin, omit
+//     headers: {
+//       "Content-Type": "application/json",
+//       // 'Content-Type': 'application/x-www-form-urlencoded',
+//     },
+//     redirect: "follow", // manual, *follow, error
+//     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+//     body: JSON.stringify(data), // body data type must match "Content-Type" header
+//   });
+            fetch('/cart/show',{
+                method:"POST",
+                cache:"no-cache",
+                credentials:"same-origin",
+                headers:{
+                    "Content-Type": "application/json",
+                },
+                body:JSON.stringify({
+                    token:token
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const cartItemsElement = document.getElementById('cartItems');
+                    cartItemsElement.innerHTML = '';
+                    data.items.forEach(item => {
+                        console.log()
+                        const li = document.createElement('li');
+                        li.textContent = '#'+item.id+' '+item.item_name+' '+item.item_quantity;
+                        cartItemsElement.appendChild(li);
+                    });
+                    const li = document.createElement('span');
+                        li.textContent = 'Total Price'+' '+data.total_price
+                    cartItemsElement.appendChild(li)
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    </script>
+</body>
+
+</html>
